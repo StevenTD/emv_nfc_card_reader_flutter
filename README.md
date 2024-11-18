@@ -5,4 +5,4 @@ Sample flutter project for reading NFC card (debit/credit) using https://github.
 ## Getting Started
 
 For android only.
-Credit to [original owener](https://github.com/paadevelopments/emv_nfc_card_reader_flutter)
+Credit to [original owner](https://github.com/paadevelopments/emv_nfc_card_reader_flutter)
