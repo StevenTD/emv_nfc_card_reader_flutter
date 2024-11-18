@@ -54,15 +54,16 @@ class _ReadScreenState extends State<ReadScreen> {
           scanResult = scanOp['cardData'];
           flowIndex++;
           isScanning = false;
+          if (scanResult.isNotEmpty) {
+            try {
+              emvFinal = EmvCard.fromString(scanResult);
+              debugPrint(
+                  'Successfully converted to domain: ${emvFinal.toString()}');
 
-          try {
-            emvFinal = EmvCard.fromString(scanResult);
-            debugPrint(
-                'Successfully converted to domain: ${emvFinal.toString()}');
-
-            debugPrint(scanResult);
-          } catch (e) {
-            print(e);
+              debugPrint(scanResult);
+            } catch (e) {
+              print(e);
+            }
           }
         });
         return;
@@ -187,23 +188,21 @@ class _ReadScreenState extends State<ReadScreen> {
             emvFinal != null
                 ? CreditCardWidget(
                     cardHolderName: 'Card Holder',
-                    cardNumber: emvFinal!.track2CardNumber!,
-                    cardType: emvFinal!.applicationLabel,
+                    cardNumber: emvFinal?.track2CardNumber ?? '',
+                    cardType: emvFinal?.applicationLabel ?? '',
                     expiryDate: emvFinal?.track2ExpireDate.toString() ?? '',
                   )
                 : Container(),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.only(bottom: 100),
-                child: SingleChildScrollView(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(scanResult),
-                  ),
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 100),
+              child: SingleChildScrollView(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(scanResult),
                 ),
               ),
             ),

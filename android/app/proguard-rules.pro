@@ -1,0 +1,2 @@
+-keep class com.example.emv_sample.EmvCard { *; }
+-keep class com.example.emv_sample.EmvTemplate { *; }
